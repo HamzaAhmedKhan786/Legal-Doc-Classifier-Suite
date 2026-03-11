@@ -1,9 +1,11 @@
 from utils import load_artifact
+import os
 
 class LegalClassifier:
     def __init__(self, model_type="SVC"):
-        self.vectorizer = load_artifact("vectorizer.joblib")
-        self.model = load_artifact(f"{model_type}_model.joblib")
+        # Points to the artifacts folder
+        self.vectorizer = load_artifact(os.path.join('artifacts', "vectorizer.joblib"))
+        self.model = load_artifact(os.path.join('artifacts', f"{model_type}_model.joblib"))
 
     def predict(self, text):
         processed_text = self.vectorizer.transform([text])

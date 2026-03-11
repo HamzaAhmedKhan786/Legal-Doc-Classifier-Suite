@@ -1,7 +1,6 @@
 import joblib
 import re
 
-# Utility functions for text preprocessing and model persistence
 def clean_text(text):
     # Remove URLs
     text = re.sub(r'http\S+', '', text)
@@ -11,13 +10,11 @@ def clean_text(text):
     text = text.lower()
     return text
 
-# Save and load model and vectorizer using joblib
-def save_artifacts(model, vectorizer, model_path='model.joblib', vectorizer_path='vectorizer.joblib'):
-    joblib.dump(model, model_path)
-    joblib.dump(vectorizer, vectorizer_path)
+# Changed to singular and made it generic to save ANY object (model or vectorizer)
+def save_artifact(obj, filepath):
+    """Saves a python object (model/vectorizer) to the specified path."""
+    joblib.dump(obj, filepath)
 
-# Load model and vectorizer from disk
-def load_artifacts(model_path='model.joblib', vectorizer_path='vectorizer.joblib'):
-    model = joblib.load(model_path)
-    vectorizer = joblib.load(vectorizer_path)
-    return model, vectorizer
+def load_artifact(filepath):
+    """Loads a python object from the specified path."""
+    return joblib.load(filepath)
